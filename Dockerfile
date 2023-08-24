@@ -1,1 +1,1 @@
-FROM --platform=arm64
+FROM node:16-bullseye
