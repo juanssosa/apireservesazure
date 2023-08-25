@@ -1,0 +1,1 @@
+//id,dtIni,dtFin,hrIni,hrFin,clRelated, reserveState
