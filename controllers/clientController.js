@@ -32,6 +32,7 @@ const getAllClients = async (req, res, next) => {
                 clientsArray.push(client);
             });
             res.send(clientsArray);
+            res.status(200);
         }
     } catch (error) {
         res.status(400).send(error.message);

@@ -15,5 +15,5 @@ app.use(bodyParser.json());
 app.use('/api', clientRoutes.routes);
 app.use('/api', reserveRoutes.routes);
 
-app.listen(config.port, () => console.log('Running on port '+config.port));
 
+app.listen(config.port, () => console.log('Running on port '+config.port));
