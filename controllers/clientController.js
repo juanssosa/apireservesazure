@@ -8,7 +8,7 @@ const addClient = async(req,res,next) => {
     try{
         const data = req.body;
         await db.collection('clients').doc().set(data);
-        res.send('Record saved!')
+        res.send('Client saved!')
     } catch(error) {
         res.status(400).send(error.message);
     }
@@ -20,7 +20,7 @@ const getAllClients = async (req, res, next) => {
         const data = await clients.get();
         const clientsArray = [];
         if(data.empty) {
-            res.status(404).send('No client found');
+            res.status(404).send('No client found!');
         }else {
             data.forEach(doc => {
                 const client = new Client(
@@ -44,7 +44,7 @@ const getClient = async (req, res, next) => {
         const client = await db.collection('clients').doc(id);
         const data = await client.get();
         if(!data.exists) {
-            res.status(404).send('Client with the given ID has not been found');
+            res.status(404).send('Client with the given ID has not been found!');
         }else {
             res.send(data.data());
         }
@@ -69,7 +69,7 @@ const deleteClient = async (req, res, next) => {
     try {
         const id = req.params.id;
         await db.collection('clients').doc(id).delete();
-        res.send('Client deleted');
+        res.send('Client deleted!');
     } catch (error) {
         res.status(400).send(error.message);
     }
