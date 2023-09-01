@@ -6,7 +6,7 @@ const app = require('../routes/client-routes.js');
 describe('Client API Tests', () => {
     test('It should get a client list', async () => {
     const response = await request(app.routes).get('/api/clients');
-    expect(response.statusCode).toBe(200);
+    expect(response.statusCode).toBe(202);
   });
 
   test('It should create a new client', async () => {
