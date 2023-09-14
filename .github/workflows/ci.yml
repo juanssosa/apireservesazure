@@ -18,4 +18,4 @@ jobs:
     - name: Build the Docker image
       run: docker build -t apireservesaws .
     - name: Push to Dockerhub
-      run: docker push juanssosa/apireservesaws:latest
+      run: docker push juanssosa/apireservesaws:tagname
