@@ -16,6 +16,6 @@ jobs:
       run: echo ":Yy277n&&t,H;GN" | docker login -u juanssosa --password-stdin
       
     - name: Build the Docker image
-      run: docker build -t juanssosa/apireservesaws .
+      run: docker build -t juanssosa/apireservesaws:latest .
     - name: Push to Dockerhub
-      run: docker push juanssosa/apireservesaws:tagname
+      run: docker push juanssosa/apireservesaws:latest
