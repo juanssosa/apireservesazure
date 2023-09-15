@@ -13,7 +13,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: login Dockerhub
-      run: echo ":Yy277n&&t,H;GN" | docker login -u juanssosa --password-stdin
+      run: echo "{pass}" | docker login -u {user} --password-stdin
       
     - name: Build the Docker image
       run: docker build -t juanssosa/apireservesaws:latest .
