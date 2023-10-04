@@ -1,24 +1,26 @@
 'use strict';
-const dotenv = require('dotenv');
-const assert = require('assert');
 
+const dotenv = require('dotenv');
 dotenv.config();
 
 const {
-    PORT,
-    HOST,
-    HOST_URL,
-    AWS_ACCESS_KEY_ID,
-    AWS_SECRET_ACCESS_KEY
+    DB_TYPE,
+    DB_HOST,
+    DB_PORT,
+    DB_USER,
+    DB_PASSWORD,
+    DB_NAME,
+    AUTO_LOAD_ENTITIES,
+    SYNCHRONIZE
 } = process.env;
 
-assert(PORT, 'PORT is required');
-assert(HOST, 'HOST is reqwuired');
-
 module.exports = {
-    port: PORT,
-    host: HOST,
-    url: HOST_URL,
-    awsAccessKey: AWS_ACCESS_KEY_ID,
-    awsSecretKey: AWS_SECRET_ACCESS_KEY
-}
+    dbType: DB_TYPE,
+    dbHost: DB_HOST,
+    dbPort: parseInt(DB_PORT),
+    dbUser: DB_USER,
+    dbPassword: DB_PASSWORD,
+    dbName: DB_NAME,
+    autoLoadEntities: AUTO_LOAD_ENTITIES === 'true',
+    synchronize: SYNCHRONIZE === 'true'
+};
