@@ -4,6 +4,9 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 const {
+    PORT,
+    HOST,
+    HOST_URL,
     DB_TYPE,
     DB_HOST,
     DB_PORT,
@@ -15,6 +18,9 @@ const {
 } = process.env;
 
 module.exports = {
+    port: PORT,
+    host: HOST,
+    url: HOST_URL,
     dbType: DB_TYPE,
     dbHost: DB_HOST,
     dbPort: parseInt(DB_PORT),

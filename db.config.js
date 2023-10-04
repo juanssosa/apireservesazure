@@ -1,19 +1,19 @@
-const AWS = require('aws-sdk')
-const config = require('./config')
+const { Pool } = require('pg');
+const config = require('./config');
 
-AWS.config.update({
-    region: "us-east-1",
-    accessKeyId: config.awsAccessKey,
-    secretAccessKey: config.awsSecretKey
-})
+const db = new Pool({
+    host: config.dbHost,
+    port: config.dbPort,
+    database: config.dbName,
+    user: config.dbUser,
+    password: config.dbPassword
+});
 
-const db = new AWS.DynamoDB.DocumentClient()
-
-const TableClient = 'clients'
-const TableReserve = 'reserves'
+const TableClient = 'clients'; // Nombre de la tabla en 
+const TableReserve = 'reserves';
 
 module.exports = {
     db,
     TableClient,
     TableReserve
-}
+};

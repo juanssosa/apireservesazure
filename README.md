@@ -8,7 +8,7 @@ This is a reservation system API built using Express.js and Firebase, for my Dev
 ### Installation ✅
 You can install the required dependencies using npm. Run the following command:
 
-**npm install express firebase firebase-admin body-parser cors nodemon dotenv**
+**npm install**
 
 ### Usage 🤔
 The API provides endpoints for managing clients and reservations. You can interact with the API using tools like Postman or curl.
