@@ -1,6 +1,6 @@
 <h1 align="center">Reservation System API 👨‍💻</h1>
 
-This is a reservation system API built using Express.js and Firebase, for my Devops class.
+This is a reservation system API built using Express.js and Azure SQL, for my Devops class.
 
 
 <h2 align="center">Getting Started 🔥</h2>
