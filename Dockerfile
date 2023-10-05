@@ -1,6 +1,6 @@
 FROM node:18.17.1-bullseye
 
-WORKDIR /app-ApiReserveAWS
+WORKDIR /app-ApiReserveAzure
 
 COPY package*.json ./
 
