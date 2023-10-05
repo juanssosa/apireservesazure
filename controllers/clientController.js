@@ -56,7 +56,8 @@ router.put('/clients/:id', async (req, res) => {
         phone,
     } = req.body;
     clientModel
-        .updateClient(id, {
+        .updateClient({
+            id,
             firstName,
             lastName,
             phone,

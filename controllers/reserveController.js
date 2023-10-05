@@ -1,112 +1,97 @@
-'use strict';
+const router = require('express').Router();
+const reserveModel = require('../models/reserve');
 
-const { db, TableReserve } = require('../db.config'); // Asegúrate de importar 'db' y 'Table' desde tu archivo db.config.js
+router.get('/reserves', async (req, res) => {
+    reserveModel
+        .getAllReserves()
+        .then(data => {
+            res.status(200).json({ data });
+        })
+        .catch(error => {
+            res.status(500).json({ error });
+        });
+});
 
-const addReserve = async (req, res, next) => {
-    try {
-        const data = req.body;
-        const params = {
-            TableName: TableReserve,
-            Item: data
-        };
-        await db.put(params).promise();
-        res.send('Reserva guardada!');
-    } catch (error) {
-        res.status(400).send(error.message);
-    }
-}
-
-const getAllReserves = async (req, res, next) => {
-    try {
-        const params = {
-            TableName: TableReserve
-        };
-        const result = await db.scan(params).promise();
-        const reservesArray = result.Items || [];
-        if (reservesArray.length === 0) {
-            res.status(404).send('¡No se encontraron reservas!');
-        } else {
-            res.send(reservesArray);
-        }
-    } catch (error) {
-        res.status(400).send(error.message);
-    }
-}
-
-const getReserve = async (req, res, next) => {
-    try {
-        const id = req.params.id;
-        const params = {
-            TableName: TableReserve,
-            Key: {
-                'id': parseInt(id)
+router.get('/reserves/:id', async (req, res) => {
+    const { id } = req.params;
+    reserveModel
+        .getReserve(id)
+        .then(data => {
+            if (data) {
+                res.status(200).json({ data });
+            } else {
+                res.status(404).json({ error: 'No se encontró la reserva con el ID proporcionado' });
             }
-        };
-        const result = await db.get(params).promise();
-        if (!result.Item) {
-            res.status(404).send('Reserva con el ID proporcionado no encontrado!');
-        } else {
-            res.send(result.Item);
-        }
-    } catch (error) {
-        res.status(400).send(error.message);
-    }
-}
+        })
+        .catch(error => {
+            res.status(500).json({ error });
+        });
+});
 
-const updateReserve = async (req, res, next) => {
-    try {
-        const id = req.params.id;
-        const data = req.body;
-        const params = {
-            TableName: TableReserve,
-            Key: {
-                'id': parseInt(id)
-            },
-            UpdateExpression: 'SET #dtIni = :dtIni, #dtFin = :dtFin, #hrIni = :hrIni, #hrFin = :hrFin, #clRelated = :clRelated, #reserveState = :reserveState',
-            ExpressionAttributeNames: {
-                '#dtIni' : 'dtIni', 
-                '#dtFin' : 'dtFin', 
-                '#hrIni' : 'hrIni', 
-                '#hrFin' : 'hrFin', 
-                '#clRelated' : 'clRelated', 
-                '#reserveState' : 'reserveState'
-            },
-            ExpressionAttributeValues: {
-                ':dtIni': data.dtIni,
-                ':dtFin': data.dtFin,
-                ':hrIni': data.hrIni,
-                ':hrFin': data.hrFin,
-                ':clRelated': data.clRelated,
-                ':reserveState': data.reserveState
-            }
-        };
-        await db.update(params).promise();
-        res.send('Reserva actualizado!');
-    } catch (error) {
-        res.status(400).send(error.message);
-    }
-}
+router.post('/reserves', async (req, res) => {
+    const {
+        id, 
+        dtIni, 
+        dtFin,
+        hrIni, 
+        hrFin, 
+        clRelated, 
+        reserveState
+    } = req.body;
+    reserveModel.addReserve({
+        id, 
+        dtIni, 
+        dtFin,
+        hrIni, 
+        hrFin, 
+        clRelated, 
+        reserveState
+        }).then(() => {
+            res.status(200).json({ message: 'Reserva creada exitosamente' });
+        })
+        .catch(error => {
+            res.status(500).json({ error });
+        });
+});
 
-const deleteReserve = async (req, res, next) => {
-    try {
-        const id = req.params.id;
-        const params = {
-            TableName: TableReserve,
-            Key: {
-                'id': parseInt(id)
-            }
-        };
-        await db.delete(params).promise();
-        res.send('Reserva eliminado!');
-    } catch (error) {
-        res.status(400).send(error.message);
-    }
-}
+router.put('/reserves/:id', async (req, res) => {
+    const { id } = req.params;
+    const { 
+        dtIni, 
+        dtFin,
+        hrIni, 
+        hrFin, 
+        clRelated, 
+        reserveState
+    } = req.body;
+    reserveModel
+        .updateReserve({
+            id,
+            dtIni, 
+            dtFin,
+            hrIni, 
+            hrFin, 
+            clRelated, 
+            reserveState
+        })
+        .then(() => {
+            res.status(200).json({ message: 'Reserva actualizada exitosamente' });
+        })
+        .catch(error => {
+            res.status(500).json({ error });
+        });
+});
 
-module.exports = {
-    addReserve,
-    getAllReserves,
-    getReserve,
-    updateReserve,
-    deleteReserve
-}
+router.delete('/reserves/:id', async (req, res) => {
+    const { id } = req.params;
+    reserveModel
+        .deleteReserve(id)
+        .then(() => {
+            res.status(200).json({ message: 'Reserva eliminada exitosamente' });
+        })
+        .catch(error => {
+            res.status(500).json({ error });
+        });
+});
+
+module.exports = router;
