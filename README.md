@@ -15,20 +15,20 @@ The API provides endpoints for managing clients and reservations. You can intera
 
 **Client Endpoints:**
 
-* POST /api/client: Create a new client.
+* POST /api/clients: Create a new client.
 * GET /api/clients: Get a list of all clients.
-* GET /api/client/:id Get details of a specific client.
-* PUT /api/client/:id Update a client's information.
-* DELETE /api/client/:id Delete a client.
+* GET /api/clients/:id Get details of a specific client.
+* PUT /api/clients/:id Update a client's information.
+* DELETE /api/clients/:id Delete a client.
 
 
 **Reservation Endpoints:**
 
-* POST /api/reservation: Create a new reservation.
-* GET /api/reservations: Get a list of all reservations.
-* GET /api/reservation/:id Get details of a specific reservation.
-* PUT /api/reservation/:id Update a reservation's information.
-* DELETE /api/reservation/:id Delete a reservation.
+* POST /api/reserves: Create a new reservation.
+* GET /api/reserves: Get a list of all reservations.
+* GET /api/reserves/:id Get details of a specific reservation.
+* PUT /api/reserves/:id Update a reservation's information.
+* DELETE /api/reserves/:id Delete a reservation.
 
 
 <h2 align="center">Contributing 💯</h2>
