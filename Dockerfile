@@ -6,9 +6,9 @@ COPY package*.json ./
 
 RUN npm install 
 
-RUN npm run azure 
-
 COPY . .
+
+RUN npm run azure 
 
 EXPOSE 3000
 
