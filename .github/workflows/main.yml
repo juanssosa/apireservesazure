@@ -11,12 +11,12 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: login Dockerhub
-      run: echo "${{ secrets.DOCKERHUB_PASS }}" | docker login -u ${{ secrets.DOCKERHUB_USER }} --password-stdin
+      run: echo '${{ secrets.DOCKERHUB_PASS }}' | docker login -u ${{ secrets.DOCKERHUB_USER }} --password-stdin
       
     - name: Build the Docker image
-      run: docker build -t juanssosa/apireservesaws:latest .
+      run: docker build -t juanssosa/apireservesazure:latest .
     - name: Push to Dockerhub
-      run: docker push juanssosa/apireservesaws:latest
+      run: docker push juanssosa/apireservesazure:latest
     
     - name: Deploy
       uses: appleboy/ssh-action@v1.0.0
@@ -26,7 +26,7 @@ jobs:
         password: ${{ secrets.SSL_PASSWORD }}
         port: ${{ secrets.SSL_PORT }}
         script: |
-          sudo docker stop apireservesaws
+          sudo docker stop apireservesazure
           sudo docker rm apireservesaws
-          sudo docker pull juanssosa/apireservesaws:latest
-          sudo docker run -d --restart unless-stopped -p 3000:3000 --name apireservesaws juanssosa/apireservesaws:latest
+          sudo docker pull juanssosa/apireservesazure:latest
+          sudo docker run -d --restart unless-stopped -p 3000:3000 --name apireservesazure juanssosa/apireservesazure:latest
