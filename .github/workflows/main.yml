@@ -27,6 +27,6 @@ jobs:
         port: ${{ secrets.SSL_PORT }}
         script: |
           sudo docker stop apireservesazure
-          sudo docker rm apireservesaws
+          sudo docker rm apireservesazure
           sudo docker pull juanssosa/apireservesazure:latest
           sudo docker run -d --restart unless-stopped -p 3000:3000 --name apireservesazure juanssosa/apireservesazure:latest
