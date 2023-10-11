@@ -1,29 +1,29 @@
 const Connection = require('tedious').Connection;
 const dotenv = require('dotenv');
 
-dotenv.config();
+dotenv.config({ path: '.azure.env' });
 
 const {
-    DB_HOST,
-    DB_AUTH_TYPE,
-    DB_USER,
-    DB_PASSWORD,
-    DB_NAME
-
+    AZURE_SQL_DB,
+    AZURE_SQL_HOST,
+    AZURE_SQL_USER,
+    AZURE_SQL_PASSWORD,
 } = process.env;
 
+console.log(AZURE_SQL_DB)
+
 const configConnection = {
-    server: DB_HOST ,
+    server: AZURE_SQL_HOST ,
     authentication: {
-        type: DB_AUTH_TYPE,
+        type: 'default',
         options: {
-            userName: DB_USER,
-            password: DB_PASSWORD,
+            userName: AZURE_SQL_USER,
+            password: AZURE_SQL_PASSWORD,
         },
     },
     options: {
         encrypt: true,
-        database: DB_NAME,
+        database: AZURE_SQL_DB,
         rowCollectionOnDone: true,
     },
 };

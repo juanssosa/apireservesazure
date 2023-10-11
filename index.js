@@ -2,7 +2,6 @@
 const express = require('express');
 const cors = require('cors')
 const bodyParser = require('body-parser');
-const config = require('./config');
 const clientController = require('./controllers/clientController');
 const reserveController = require('./controllers/reserveController');
 
@@ -18,4 +17,4 @@ app.use(bodyParser.json());
 app.use('/api', clientController);
 app.use('/api', reserveController);
 
-app.listen(config.port, () => console.log('Running on port '+config.port));
+app.listen(3000, () => console.log('Running on port '+3000));
