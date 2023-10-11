@@ -1,0 +1,32 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: login Dockerhub
+      run: echo "{pass}" | docker login -u {user} --password-stdin
+      
+    - name: Build the Docker image
+      run: docker build -t juanssosa/apireservesaws:latest .
+    - name: Push to Dockerhub
+      run: docker push juanssosa/apireservesaws:latest
+    
+    - name: Deploy
+      uses: appleboy/ssh-action@v1.0.0
+      with:
+        host: ${{ secrets.SSL_HOST }}
+        username: ${{ secrets.SSL_USERNAME }}
+        password: ${{ secrets.SSL_PASSWORD }}
+        port: ${{ secrets.SSL_PORT }}
+        script: |
+          sudo docker stop apireservesaws
+          sudo docker rm apireservesaws
+          sudo docker pull juanssosa/apireservesaws:latest
+          sudo docker run -d --restart unless-stopped -p 3000:3000 --name apireservesaws juanssosa/apireservesaws:latest
