@@ -11,7 +11,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: login Dockerhub
-      run: echo "{pass}" | docker login -u {user} --password-stdin
+      run: echo ${{ secrets.DOCKERHUB_PASS }} | docker login -u ${{ secrets.DOCKERHUB_USER }} --password-stdin
       
     - name: Build the Docker image
       run: docker build -t juanssosa/apireservesaws:latest .
